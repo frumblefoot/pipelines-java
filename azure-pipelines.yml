@@ -8,7 +8,7 @@ trigger:
     - releases/old1*
 
 jobs:
-  - job: Test1122
+  - job: Test1122trigger
     strategy:
       maxParallel: 2
       matrix: 
