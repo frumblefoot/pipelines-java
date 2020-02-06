@@ -1,23 +1,22 @@
-trigger:
-  batch: true
-  branches:
-    include:
-    - master
-    - release*
-    exclude:
-    - releases/old1*
+# File: azure-pipelines.yml
 
 jobs:
-  - job: Test1122trigger
-    strategy:
-      maxParallel: 2
-      matrix: 
-        US_IE:
-          Location: US
-          Browser: IE
-        US_Chrome:
-          Location: US
-          Browser: Chrome
-        Europe_Chrome:
-          Location: Europe
-          Browser: Chrome
+  - job: Linux
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+    - template: templates/npm-steps.yml  # Template reference
+  
+  - job: macOS
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+    - template: templates/npm-steps.yml  # Template reference
+  
+  - job: Windows
+    pool:
+      vmImage: 'vs2017-win2016'
+    steps:
+    - script: echo This script runs before the template's steps, only on Windows.
+    - template: templates/npm-steps.yml  # Template reference
+    - script: echo This step runs after the template's steps.
